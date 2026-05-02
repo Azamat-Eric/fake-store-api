@@ -1,30 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru" data-theme="dark" data-lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cute Local Store</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дүкен — Тауарлар</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <header>
-        <h1>Welcome to Our Cute Shop!</h1>
-    </header>
 
-    <main>
-        <section class="products">
-            <h2>Featured Products</h2>
-            <div class="product-container"></div>
-        </section>
-    </main>
+<nav>
+  <a href="#" class="logo" aria-label="Дүкен">
+    <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">DÜKEN</div>
+      <div class="logo-sub" data-i="nav.sub">Интернет-дүкен</div>
+    </div>
+  </a>
 
-    <footer>
-        <p>&copy; 2024 Cute Local Store</p>
-    </footer>
+  <div class="nav-right">
+    <!-- Language switcher -->
+    <div class="lang-sw" role="group" aria-label="Тіл / Язык / Language">
+      <button class="lang-btn" data-l="kk">ҚАЗ</button>
+      <button class="lang-btn active" data-l="ru">РУС</button>
+      <button class="lang-btn" data-l="en">ENG</button>
+    </div>
 
-    <script src="script.js"></script>
+    <button class="cart-pill" id="cart-btn" aria-label="Корзина">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+      </svg>
+      <span id="cart-cnt">0</span>
+    </button>
+
+    <button class="theme-btn" id="theme-btn" aria-label="Тема">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="theme-icon">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="hero-tag-line"></span>
+      <span data-i="hero.eyebrow">FakeStore API · Тікелей деректер</span>
+    </div>
+    <h1 class="hero-title" data-i-html="hero.title">
+      Болашақтың<br><em>Интернет</em><br><span class="outline-word">Дүкені</span>
+    </h1>
+    <p class="hero-sub" data-i="hero.sub">
+      Электроникадан сәнді киімге дейін — барлық тауарлар тікелей API арқылы жүктеледі. Нақты баға, нақты рейтинг.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hstat-num" id="stat-total">—</div>
+        <div class="hstat-lbl" data-i="hero.stat1">Тауар</div>
+      </div>
+      <div>
+        <div class="hstat-num">4</div>
+        <div class="hstat-lbl" data-i="hero.stat2">Санат</div>
+      </div>
+      <div>
+        <div class="hstat-num">4.2★</div>
+        <div class="hstat-lbl" data-i="hero.stat3">Орт. рейтинг</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-ticker">
+      <div class="hero-ticker-label" data-i="hero.ticker.lbl">Ең қымбат тауар</div>
+      <div class="hero-ticker-val" id="max-price">$—</div>
+    </div>
+    <div class="hero-aside-card">
+      <div class="hero-aside-label" data-i="hero.aside.lbl">Орташа баға</div>
+      <div class="hero-aside-val" id="avg-price">$—</div>
+    </div>
+    <div class="hero-aside-card">
+      <div class="hero-aside-label" data-i="hero.aside2.lbl">Жыл сайынғы сату</div>
+      <div class="hero-aside-val">12 480+</div>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <button class="flt-btn active" data-cat="all"               data-i="cat.all">Барлығы</button>
+  <button class="flt-btn" data-cat="electronics"              data-i="cat.elec">Электроника</button>
+  <button class="flt-btn" data-cat="jewelery"                 data-i="cat.jew">Зергерлік</button>
+  <button class="flt-btn" data-cat="men's clothing"           data-i="cat.men">Ерлер киімі</button>
+  <button class="flt-btn" data-cat="women's clothing"         data-i="cat.wom">Әйелдер киімі</button>
+  <div class="filter-sep"></div>
+  <div class="sort-wrap">
+    <span class="sort-lbl" data-i="sort.lbl">Сұрыптау:</span>
+    <select class="sort-sel" id="sort-sel">
+      <option value="default" data-i="sort.def">Әдепкі</option>
+      <option value="price-asc" data-i="sort.pasc">Баға ↑</option>
+      <option value="price-desc" data-i="sort.pdesc">Баға ↓</option>
+      <option value="rating" data-i="sort.rate">Рейтинг ↓</option>
+    </select>
+  </div>
+</div>
+
+<div class="products-wrap">
+  <div class="sec-row">
+    <h2 class="sec-title" data-i="sec.title">Тауарлар тізімі</h2>
+    <span class="sec-count" id="sec-count" data-i="sec.loading">Жүктелуде…</span>
+  </div>
+  <div id="grid" role="list" aria-live="polite"></div>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Жабу">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+    <div class="modal-img-side">
+      <img id="m-img" src="" alt="" width="260" height="260"/>
+    </div>
+    <div class="modal-side">
+      <span class="modal-cat-tag" id="m-cat"></span>
+      <h2 class="modal-title" id="m-title"></h2>
+      <p  class="modal-desc"  id="m-desc"></p>
+      <div class="modal-rating" id="m-rating"></div>
+      <div class="modal-price" id="m-price"></div>
+      <button class="modal-buy-btn" id="m-buy" data-i="modal.buy">Себетке салу</button>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<footer>
+  <span data-i="footer.text">Деректер:</span>
+  <a href="https://fakestoreapi.com" target="_blank" rel="noopener noreferrer">fakestoreapi.com</a>
+  &nbsp;·&nbsp;
+  <span data-i="footer.copy">Портфолио жобасы</span>
+</footer>
+
+<script src="script.js"></script>
 </body>
-
 </html>
